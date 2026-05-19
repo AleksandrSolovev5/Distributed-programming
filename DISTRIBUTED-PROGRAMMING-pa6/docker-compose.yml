@@ -1,0 +1,24 @@
+services:
+  redis-main:
+    image: redis:7
+    container_name: pa6-redis-main
+    ports:
+      - "6000:6379"
+
+  redis-ru:
+    image: redis:7
+    container_name: pa6-redis-ru
+    ports:
+      - "6001:6379"
+
+  redis-eu:
+    image: redis:7
+    container_name: pa6-redis-eu
+    ports:
+      - "6002:6379"
+
+  redis-asia:
+    image: redis:7
+    container_name: pa6-redis-asia
+    ports:
+      - "6003:6379"

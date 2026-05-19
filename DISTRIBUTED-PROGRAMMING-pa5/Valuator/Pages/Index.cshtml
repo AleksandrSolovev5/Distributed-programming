@@ -1,0 +1,22 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData[ "Title" ] = "Главная";
+}
+
+<div class="text-center">
+    <form method="post">
+        <div style="color: red; margin-bottom: 10px;">
+            @foreach ( var error in ViewData.ModelState.Values.SelectMany( v => v.Errors ) )
+            {
+                <div>@error.ErrorMessage</div>
+            }
+        </div>
+
+        <div class="col-2">Текст для оценки:</div>
+        <div class="col-10">
+            <textarea name="text" rows="5" cols="50"></textarea>
+            <input type="submit" />
+        </div>
+    </form>
+</div>

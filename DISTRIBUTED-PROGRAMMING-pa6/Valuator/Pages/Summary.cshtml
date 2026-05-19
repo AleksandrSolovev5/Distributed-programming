@@ -1,0 +1,28 @@
+﻿@page
+@model Valuator.Pages.SummaryModel
+@{
+}
+
+@if ( !string.IsNullOrWhiteSpace( Model.ErrorMessage ) )
+{
+    <div style="color: red;">@Model.ErrorMessage</div>
+}
+else
+{
+    <div>ID текста: @Model.Id</div>
+    <div>Сегмент: @Model.Region</div>
+    <div>Страна: @Model.Country</div>
+
+    <hr />
+
+    @if ( Model.RankReady )
+    {
+        <div>Оценка содержания: @Model.Rank</div>
+    }
+    else
+    {
+        <div>Оценка содержания не завершена</div>
+    }
+
+    <p>Плагиат: @Model.Similarity</p>
+}

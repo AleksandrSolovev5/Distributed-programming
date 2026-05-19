@@ -1,0 +1,68 @@
+﻿@page
+@model Valuator.Pages.SummaryModel
+@{
+    ViewData[ "Title" ] = "Результат";
+}
+
+<h2>Результат проверки</h2>
+
+<div id="rank-block">
+    @if ( Model.RankReady )
+    {
+        <div>Оценка содержания: <span id="rank-value">@Model.Rank</span></div>
+    }
+    else
+    {
+        <div>Оценка содержания не завершена</div>
+    }
+</div>
+
+<p>Плагиат: @Model.Similarity</p>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/@@microsoft/signalr@8.0.17/dist/browser/signalr.min.js"></script>
+    <script>
+        (() => {
+        const requestId = "@Model.RequestId"; // Передаёт RequestId с сервера в JavaScript
+        if (!requestId) {
+        return;
+        }
+
+        const rankBlock = document.getElementById("rank-block");
+
+        const connection = new signalR.HubConnectionBuilder()
+        .withUrl("/summaryHub")
+        .withAutomaticReconnect()
+        .build();
+
+        connection.on("RankCalculated", function (data) { // обработчик события RankCalculated
+        if (!data || data.id !== requestId) {
+        return;
+        }
+        // замена содержимого блока rank-block новым HTML
+        rankBlock.innerHTML = `<div>Оценка содержания: <span id="rank-value">${data.rank}</span></div>`;
+        });
+
+        connection.onreconnected(async function () {
+        try {
+        await connection.invoke("Subscribe", requestId);
+        } catch (err) {
+        console.error(err);
+        }
+        });
+
+        async function start() {
+        try {
+        await connection.start(); // Открывает SignalR-соединение
+        await connection.invoke("Subscribe", requestId); // После подключения вызывает серверный метод Subscribe
+        console.log("Connected to SummaryHub");
+        } catch (err) {
+        console.error(err);
+        setTimeout(start, 2000); // через 2 секунды делается новая попытка
+        }
+        }
+
+        start();
+        })();
+    </script>
+}

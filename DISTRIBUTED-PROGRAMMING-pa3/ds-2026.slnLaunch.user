@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "Valuator + Calculator",
+    "Projects": [
+      {
+        "Path": "Valuator\\Valuator.csproj",
+        "Action": "StartWithoutDebugging"
+      },
+      {
+        "Path": "RankCalculator\\RankCalculator.csproj",
+        "Action": "StartWithoutDebugging"
+      }
+    ]
+  }
+]

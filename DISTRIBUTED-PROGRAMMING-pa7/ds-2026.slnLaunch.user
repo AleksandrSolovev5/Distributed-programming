@@ -1,0 +1,19 @@
+[
+  {
+    "Name": "All start",
+    "Projects": [
+      {
+        "Path": "Valuator\\Valuator.csproj",
+        "Action": "StartWithoutDebugging"
+      },
+      {
+        "Path": "RankCalculator\\RankCalculator.csproj",
+        "Action": "StartWithoutDebugging"
+      },
+      {
+        "Path": "EventsLogger\\EventsLogger.csproj",
+        "Action": "StartWithoutDebugging"
+      }
+    ]
+  }
+]

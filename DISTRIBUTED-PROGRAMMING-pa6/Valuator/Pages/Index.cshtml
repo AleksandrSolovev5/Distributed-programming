@@ -1,0 +1,43 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData[ "Title" ] = "Главная";
+}
+
+<div class="text-center">
+    <form method="post">
+        <div style="color: red; margin-bottom: 10px;">
+            @foreach ( var error in ViewData.ModelState.Values.SelectMany( v => v.Errors ) )
+            {
+                <div>@error.ErrorMessage</div>
+            }
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-2">Страна гражданства:</div>
+            <div class="col-10">
+                <select name="country">
+                    <option value="Russia">Russia</option>
+                    <option value="France">France</option>
+                    <option value="Germany">Germany</option>
+                    <option value="UAE">UAE</option>
+                    <option value="India">India</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-2">Текст для оценки:</div>
+            <div class="col-10">
+                <textarea name="text" rows="5" cols="50"></textarea>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-10">
+                <input type="submit" value="Отправить" />
+            </div>
+        </div>
+    </form>
+</div>

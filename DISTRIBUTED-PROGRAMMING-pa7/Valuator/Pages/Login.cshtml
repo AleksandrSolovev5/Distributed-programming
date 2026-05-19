@@ -1,0 +1,33 @@
+﻿@page
+@model Valuator.Pages.LoginModel
+@{
+    ViewData[ "Title" ] = "Вход";
+}
+
+<h1>Вход</h1>
+
+<form method="post">
+    <div style="color: red; margin-bottom: 10px;">
+        @foreach ( var error in ViewData.ModelState.Values.SelectMany( v => v.Errors ) )
+        {
+            <div>@error.ErrorMessage</div>
+        }
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Логин</label>
+        <input class="form-control" asp-for="Login" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Пароль</label>
+        <input class="form-control" asp-for="Password" type="password" />
+    </div>
+
+    <button class="btn btn-primary" type="submit">Войти</button>
+</form>
+
+<p style="margin-top: 15px;">
+    Нет аккаунта?
+    <a asp-page="/Register">Зарегистрироваться</a>
+</p>
