@@ -22,8 +22,7 @@ public class Program
 
         builder.Services.AddAuthorization();
 
-        // Redis: подключение из appsettings.Development.json.
-        // Это часть Задания 1: пароль Redis не хранится в коде.
+
         builder.Services.AddSingleton<IConnectionMultiplexer>( _ =>
         {
             string redisConnectionString = builder.Configuration[ "Redis:ConnectionString" ]
@@ -32,12 +31,13 @@ public class Program
             return ConnectionMultiplexer.Connect( redisConnectionString );
         } );
 
-        // RabbitMQ: подключение из appsettings.Development.json.
-        // Это часть Задания 1: логин и пароль RabbitMQ не хранятся в коде.
+
         builder.Services.AddSingleton<IConnection>( _ =>
         {
-            string hostName = builder.Configuration[ "RabbitMQ:HostName" ] ?? "localhost";
-            int port = builder.Configuration.GetValue<int?>( "RabbitMQ:Port" ) ?? 5673;
+            string hostName = builder.Configuration[ "RabbitMQ:HostName" ]
+                ?? throw new InvalidOperationException( "RabbitMQ host name is not configured." );
+            int port = builder.Configuration.GetValue<int?>( "RabbitMQ:Port" )
+                ?? throw new InvalidOperationException( "RabbitMQ port is not configured." );
 
             string userName = builder.Configuration[ "RabbitMQ:UserName" ]
                 ?? throw new InvalidOperationException( "RabbitMQ user name is not configured." );

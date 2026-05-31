@@ -56,8 +56,6 @@ public class IndexModel : PageModel
 
         _db.StringSet( "TEXT-" + id, text );
 
-        // PA7: идентификация автора текста.
-        // Теперь каждый отправленный текст связан с пользователем.
         _db.StringSet( "AUTHOR-" + id, userId );
         _db.StringSet( "AUTHOR-LOGIN-" + id, userLogin );
 

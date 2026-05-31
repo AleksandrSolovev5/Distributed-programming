@@ -8,7 +8,7 @@ public static class PasswordHasher
     private const int HashSize = 32;
     private const int Iterations = 100_000;
 
-    public static string HashPassword( string password )
+    public static string HashPassword( string password )    
     {
         byte[] salt = RandomNumberGenerator.GetBytes( SaltSize );
 

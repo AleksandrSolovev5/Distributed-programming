@@ -25,21 +25,21 @@ channel.ExchangeDeclare(
     autoDelete: false,
     arguments: null );
 
-// отдельная очередь для каждого экземпляра логгера
+
 string queueName = channel.QueueDeclare(
-    queue: "", // автоматически генерировать уникальное имя
+    queue: "", 
     durable: false,
-    exclusive: true, // этой очередью пользуется только текущее соединение
+    exclusive: true, 
     autoDelete: true,
     arguments: null ).QueueName;
 
-channel.QueueBind( // Привязка очереди к событию RankCalculated
+channel.QueueBind( 
     queue: queueName,
     exchange: EventsExchangeName,
     routingKey: RankCalculatedRoutingKey,
     arguments: null );
 
-channel.QueueBind( // Привязка очереди к событию SimilarityCalculated
+channel.QueueBind( 
     queue: queueName,
     exchange: EventsExchangeName,
     routingKey: SimilarityCalculatedRoutingKey,
@@ -49,7 +49,7 @@ Console.WriteLine( $"{instanceName} запущен. Очередь: {queueName}"
 Console.WriteLine( "Ожидаю события..." );
 
 var consumer = new RabbitMQ.Client.Events.EventingBasicConsumer( channel );
-consumer.Received += ( sender, ea ) => // когда пришло сообщение, выполни этот блок кода
+consumer.Received += ( sender, ea ) => 
 {
     try
     {
@@ -85,7 +85,7 @@ consumer.Received += ( sender, ea ) => // когда пришло сообщен
 
 channel.BasicConsume(
     queue: queueName,
-    autoAck: true, // как только сообщение доставлено логгеру, RabbitMQ считает его подтверждённым автоматически
+    autoAck: true,
     consumerTag: "",
     noLocal: false,
     exclusive: false,

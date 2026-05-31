@@ -38,15 +38,11 @@ public class SummaryModel : PageModel
 
         RedisValue authorValue = _db.StringGet( "AUTHOR-" + id );
 
-        // Если результата нет или он был создан старой версией без автора,
-        // то показывать его нельзя.
         if ( !authorValue.HasValue )
             return NotFound();
 
         string authorId = authorValue!;
 
-        // PA7: авторизация.
-        // Summary может смотреть только автор текста.
         if ( authorId != currentUserId )
             return Forbid();
 
